@@ -5,7 +5,7 @@ function NavB() {
   return (
     <Navbar className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand href="#home">Report Lost and Mark Found</Navbar.Brand>
+        <Navbar.Brand href="#home">User Details</Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>

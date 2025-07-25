@@ -1,14 +1,28 @@
-import { Table } from "react-bootstrap";
+import Table from "react-bootstrap/esm/Table";
+
+
 
 export function UserConsole(){
+    const tHeads: string[] =[
+        "ID",
+        "User userName",
+        "Email",
+        "Password",
+        "Phone",
+        "role",
+       
+
+
+
+    
+];
     return(
        <Table striped bordered hover>
       <thead>
         <tr>
-          <th>#</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Username</th>
+            {tHeads.map((headings)=>
+               <th>{headings}</th> )}
+         
         </tr>
       </thead>
       <tbody>
