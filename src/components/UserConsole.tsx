@@ -1,95 +1,86 @@
 import Table from "react-bootstrap/esm/Table";
 import { GetUsers } from "../service/GetUsers";
 import { useEffect, useState } from "react";
-import { Button, Row } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import EditUser from "./Edituser";
 
+export function UserConsole() {
+ interface User {
+  userID: string;
+  userName: string;
+  userEmail: string;
+  userPassword: string;
+  userPhone: string;
+  userRole: string;  // or enum if you have Role enum
+}
 
 
+  const [userData, setUserData] = useState<User[]>([]);
+  const [selectedRow, setSelectedRow] = useState<User | null>(null);
+  const [showEditUserForm, setShowEditUserForm] = useState(false);
 
-export function UserConsole(){
+  // Load data once
+  useEffect(() => {
+    const loadData = async () => {
+      const userDetails = await GetUsers();
+      setUserData(userDetails);
+    };
+    loadData();
+  }, []);
 
-  interface User{
-     userid :string,
-     email :string,
-     password :string,
-     phone :string,
-     role :string,
-     user_name :string,
+  const tHeads: string[] = ["ID", "User Name", "Email", "Password", "Phone", "Role", "Actions"];
 
-  }
+  const handleEdit = (row: User) => {
+    console.log("Handle Edit:", row);
+    setSelectedRow(row);        
+    setShowEditUserForm(true); 
+  };
 
-  const [userData,setUserData]=useState<User[]>([])
-  const [selectedRow,setSelectedRow]=useState<User | null>(null)
-  const [showEditUserForm,setShowEditUserForm]= useState(false) //handle show the edituserForm
+  const handleClose = () => setShowEditUserForm(false);
 
-    //add use Effect to load data
-    useEffect(()=>{
-        const loadData=async()=>{
-             const userDetails=await GetUsers()
-              setUserData(userDetails);
-        };
-        loadData()
-    },[])
-    const tHeads: string[] =[
-        "ID",
-        "User Name",
-        "Email",
-        "Password",
-        "Phone",
-        "Role",
-       ];
+  const handleUpdate = (updatedUser: User) => {
+    alert("Updated user");
+    console.log("Updated user:", updatedUser);
+  };
 
-    //Hanlde Edit function
-    const handleEdit=(row : User)=>{
-      console.log("Henalde Edit",row);
-      setSelectedRow(row)
-      setShowEditUserForm(true)
-    }
-
-    const hanleClose=()=> setShowEditUserForm(false)
-    const handleUpdate=()=>(updatedUser: User) =>{
-      alert ("updated user")
-      console.log("Update user",updatedUser)
-    }
-     
-    return (
-      <>
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              {tHeads.map((headings) => (
-                <th>{headings}</th>
-              ))}
-            </tr>
-          </thead>
-
-          <tbody>
-            {userData.map((row) => (
-              <tr key={row.userid}>
-                {Object.values(row).map((cell, index) => (
-                  <td key={index}>{cell}</td>
-                ))}
-                <td>
-                  <div className="d-flex gap-2">
-                    <Button variant="success" onClick={() => handleEdit(row)}>
-                      Edit
-                    </Button>
-                    <Button variant="danger">Danger</Button>
-                  </div>
-                </td>
-              </tr>
+  return (
+    <>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            {tHeads.map((heading) => (
+              <th key={heading}>{heading}</th>
             ))}
-          </tbody>
-        </Table>
-        <EditUser
-          show={showEditUserForm}
-          selectedRow={selectedRow}
-          handleClose={hanleClose}
-          handleUpdate={handleUpdate}
-        />
-      </>
-    );
+          </tr>
+        </thead>
+        <tbody>
+          {userData.map((row) => (
+            <tr key={row.userID}>
+              {Object.values(row).map((cell, index) => (
+                <td key={index}>{cell}</td>
+              ))}
+              <td>
+                <div className="d-flex gap-2">
+                  <Button variant="success" onClick={() => handleEdit(row)}>
+                    Edit
+                  </Button>
+                  <Button variant="danger">Delete</Button>
+                  
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+
+      <EditUser
+        show={showEditUserForm}
+        selectedRow={selectedRow}
+        handleClose={handleClose}
+        handleUpdate={handleUpdate} // ✅ correct function signature
+      />
+    </>
+  );
 }
 
 export default UserConsole;
