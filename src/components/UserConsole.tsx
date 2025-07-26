@@ -1,21 +1,39 @@
 import Table from "react-bootstrap/esm/Table";
+import { GetUsers } from "../service/GetUsers";
+import { useEffect, useState } from "react";
 
 
 
 export function UserConsole(){
+
+  interface User{
+     userid :string,
+     email :string,
+     password :string,
+     phone :string,
+     role :string,
+     user_name :string,
+
+  }
+
+  const [userData,setUserData]=useState<User[]>([])
+
+    //add use Effect to load data
+    useEffect(()=>{
+        const loadData=async()=>{
+             const userDetails=await GetUsers()
+              setUserData(userDetails);
+        };
+        loadData()
+    },[])
     const tHeads: string[] =[
         "ID",
-        "User userName",
+        "User Name",
         "Email",
         "Password",
         "Phone",
-        "role",
-       
-
-
-
-    
-];
+        "Role",
+       ];
     return(
        <Table striped bordered hover>
       <thead>
@@ -25,24 +43,19 @@ export function UserConsole(){
          
         </tr>
       </thead>
+             
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td colSpan={2}>Larry the Bird</td>
-          <td>@twitter</td>
-        </tr>
+         {userData.map((row)=>(
+                <tr key={row.userid}>
+                  {Object.values(row).map((cell,index)=>(
+                    <td key={index}>
+                      {cell}
+                    </td>
+                  ))}
+                 
+                </tr>
+              ))}
+        
       </tbody>
     </Table>
   
