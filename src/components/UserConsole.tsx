@@ -2,6 +2,8 @@ import Table from "react-bootstrap/esm/Table";
 import { GetUsers } from "../service/GetUsers";
 import { useEffect, useState } from "react";
 import { Button, Row } from "react-bootstrap";
+import EditUser from "./Edituser";
+
 
 
 
@@ -18,7 +20,8 @@ export function UserConsole(){
   }
 
   const [userData,setUserData]=useState<User[]>([])
-  const [selectedRow,SetSelectedRow]=useState<User | null>(null)
+  const [selectedRow,setSelectedRow]=useState<User | null>(null)
+  const [showEditUserForm,setShowEditUserForm]= useState(false) //handle show the edituserForm
 
     //add use Effect to load data
     useEffect(()=>{
@@ -28,11 +31,6 @@ export function UserConsole(){
         };
         loadData()
     },[])
-
-    //Hanlde Edit function
-    const handleEdit=(row : User)=>{
-      console.log("Henalde Edit",row);
-    }  
     const tHeads: string[] =[
         "ID",
         "User Name",
@@ -42,39 +40,56 @@ export function UserConsole(){
         "Role",
        ];
 
+    //Hanlde Edit function
+    const handleEdit=(row : User)=>{
+      console.log("Henalde Edit",row);
+      setSelectedRow(row)
+      setShowEditUserForm(true)
+    }
+
+    const hanleClose=()=> setShowEditUserForm(false)
+    const handleUpdate=()=>(updatedUser: User) =>{
+      alert ("updated user")
+      console.log("Update user",updatedUser)
+    }
      
-    return(
-       <Table striped bordered hover>
-      <thead>
-        <tr>
-            {tHeads.map((headings)=>
-               <th>{headings}</th> )}
-         
-        </tr>
-      </thead>
-             
-      <tbody>
-         {userData.map((row)=>(
-                <tr key={row.userid}>
-                  {Object.values(row).map((cell,index)=>(
-                    <td key={index}>
-                      {cell}
-                    </td>
-                  ))}
-                  <td>
-                    <div className="d-flex gap-2">
-                       <Button variant="success" onClick={()=>handleEdit(row)}>Edit</Button>
-                     <Button variant="danger">Danger</Button>
-                    </div>
-                   
-                  </td>
-                 
-                </tr>
+    return (
+      <>
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              {tHeads.map((headings) => (
+                <th>{headings}</th>
               ))}
-        
-      </tbody>
-    </Table>
-  
+            </tr>
+          </thead>
+
+          <tbody>
+            {userData.map((row) => (
+              <tr key={row.userid}>
+                {Object.values(row).map((cell, index) => (
+                  <td key={index}>{cell}</td>
+                ))}
+                <td>
+                  <div className="d-flex gap-2">
+                    <Button variant="success" onClick={() => handleEdit(row)}>
+                      Edit
+                    </Button>
+                    <Button variant="danger">Danger</Button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+        <EditUser
+          show={showEditUserForm}
+          selectedRow={selectedRow}
+          handleClose={hanleClose}
+          handleUpdate={handleUpdate}
+        />
+      </>
     );
 }
+
 export default UserConsole;

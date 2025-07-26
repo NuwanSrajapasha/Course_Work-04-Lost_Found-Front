@@ -1,7 +1,23 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-function EditUser() {
+interface User{
+     userid :string,
+     email :string,
+     password :string,
+     phone :string,
+     role :string,
+     user_name :string,
+
+  }
+interface UserEditProps{
+    show:Boolean;
+    selectedRow:User |null;
+    handleClose :() => void;
+    handleUpdate : (updatedUser: any) => void
+}
+
+function EditUser({show,selectedRow,handleClose,handleUpdate} : UserEditProps) {
   return (
     <div
       className="modal show"
