@@ -39,7 +39,6 @@ export function UserConsole() {
   const handleClose = () => setShowEditUserForm(false);
 
   const handleUpdate = (updatedUser: User) => {
-    alert("Updated user");
     console.log("Updated user:", updatedUser);
   };
 
