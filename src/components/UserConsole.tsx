@@ -1,7 +1,7 @@
 import Table from "react-bootstrap/esm/Table";
 import { GetUsers } from "../service/GetUsers";
 import { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Row } from "react-bootstrap";
 
 
 
@@ -18,6 +18,7 @@ export function UserConsole(){
   }
 
   const [userData,setUserData]=useState<User[]>([])
+  const [selectedRow,SetSelectedRow]=useState<User | null>(null)
 
     //add use Effect to load data
     useEffect(()=>{
@@ -27,6 +28,11 @@ export function UserConsole(){
         };
         loadData()
     },[])
+
+    //Hanlde Edit function
+    const handleEdit=(row : User)=>{
+      console.log("Henalde Edit",row);
+    }  
     const tHeads: string[] =[
         "ID",
         "User Name",
@@ -35,6 +41,8 @@ export function UserConsole(){
         "Phone",
         "Role",
        ];
+
+     
     return(
        <Table striped bordered hover>
       <thead>
@@ -55,10 +63,10 @@ export function UserConsole(){
                   ))}
                   <td>
                     <div className="d-flex gap-2">
-                        <Button variant="success">Edit</Button>
-                        <Button variant="danger">Delete</Button>
+                       <Button variant="success" onClick={()=>handleEdit(row)}>Edit</Button>
+                     <Button variant="danger">Danger</Button>
                     </div>
-                    
+                   
                   </td>
                  
                 </tr>
