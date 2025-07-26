@@ -1,11 +1,8 @@
 import Table from "react-bootstrap/esm/Table";
-import { GetUsers } from "../service/GetUsers";
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import EditUser from "./Edituser";
-import { DeleteUser } from "../service/DeleteUser";
 import AddUser from "./AddUser";
-
+import {AddUserData,DeleteUser,GetUsers,UpdateUsers} from '../service/UserData'
 export function UserConsole() {
  interface User {
   userID: string;
