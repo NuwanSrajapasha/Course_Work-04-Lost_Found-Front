@@ -1,6 +1,7 @@
 import Table from "react-bootstrap/esm/Table";
 import { GetUsers } from "../service/GetUsers";
 import { useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
 
 
 
@@ -52,6 +53,13 @@ export function UserConsole(){
                       {cell}
                     </td>
                   ))}
+                  <td>
+                    <div className="d-flex gap-2">
+                        <Button variant="success">Edit</Button>
+                        <Button variant="danger">Delete</Button>
+                    </div>
+                    
+                  </td>
                  
                 </tr>
               ))}
