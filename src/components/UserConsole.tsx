@@ -3,6 +3,7 @@ import { GetUsers } from "../service/GetUsers";
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import EditUser from "./Edituser";
+import { DeleteUser } from "../service/DeleteUser";
 
 export function UserConsole() {
  interface User {
@@ -40,7 +41,30 @@ export function UserConsole() {
 
   const handleUpdate = (updatedUser: User) => {
     console.log("Updated user:", updatedUser);
+    const updatedUsers=userData.map((user)=>
+    user.userID ==updatedUser.userID ? updatedUser : user);
+    setUserData(updatedUsers)
   };
+  //Handle  Delete
+  const handleDelete= async (userID:string )=>{
+    if (window.confirm("Are you sure you want to delete this user?")) {
+        try {
+            await DeleteUser(userID);
+            setUserData(userData.filter(user => user.userID !== userID));
+            setSuccess("User deleted successfully");
+        } catch (err) {
+            setError("Failed to delete user. You may not have permission.");
+        }
+    }
+    try{
+       DeleteUser("Deleted")
+    setUserData(userData.filter((user) => user.userID !== userID))
+
+    }catch(err){
+      console.error("Delete book failed ",err)
+    }
+   
+  }
 
   return (
     <>
@@ -63,7 +87,7 @@ export function UserConsole() {
                   <Button variant="success" onClick={() => handleEdit(row)}>
                     Edit
                   </Button>
-                  <Button variant="danger">Delete</Button>
+                  <Button variant="danger" onClick={()=> handleDelete(row.userID)}>Delete</Button>
                   
                 </div>
               </td>
@@ -76,10 +100,18 @@ export function UserConsole() {
         show={showEditUserForm}
         selectedRow={selectedRow}
         handleClose={handleClose}
-        handleUpdate={handleUpdate} // ✅ correct function signature
+        handleUpdate={handleUpdate} 
       />
     </>
   );
 }
 
 export default UserConsole;
+function setSuccess(arg0: string) {
+  throw new Error("Function not implemented.");
+}
+
+function setError(arg0: string) {
+  throw new Error("Function not implemented.");
+}
+
