@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { FloatingLabel, Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { UpdateUsers } from "../service/UpdateUser";
 
 interface User {
   userID: string;
@@ -48,9 +49,15 @@ function EditUser({ show, selectedRow, handleClose, handleUpdate }: UserEditProp
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const handleOnSave = () => {
-    handleUpdate(user);
-    handleClose();
+  const handleOnSave = async () => {
+    try {
+      handleUpdate(user);
+      const updateUser = await UpdateUsers(user);
+      handleUpdate(updateUser);
+      handleClose();
+    } catch (err) {
+      console.error("Fail to update User", err);
+    }
   };
 
   return (
@@ -60,52 +67,71 @@ function EditUser({ show, selectedRow, handleClose, handleUpdate }: UserEditProp
       </Modal.Header>
       <Modal.Body>
         <Form>
-          <FloatingLabel controlId="floatingUserID" label="User ID" className="mb-3">
+          <FloatingLabel
+            controlId="floatingUserID"
+            label="User ID"
+            className="mb-3"
+          >
             <Form.Control
               readOnly
               type="text"
-              name="userid"
+              name=" userID"
               value={user.userID}
               onChange={handleOnChange}
-             
             />
           </FloatingLabel>
-          <FloatingLabel controlId="floatingUserID" label="User Name" className="mb-3">
+          <FloatingLabel
+            controlId="floatingUserID"
+            label="User Name"
+            className="mb-3"
+          >
             <Form.Control
               type="text"
-              name="user_name"
+              name="userName"
               value={user.userName}
               onChange={handleOnChange}
-             
             />
           </FloatingLabel>
-          <FloatingLabel controlId="floatingUserID" label="Email" className="mb-3">
+          <FloatingLabel
+            controlId="floatingUserID"
+            label="Email"
+            className="mb-3"
+          >
             <Form.Control
               type="text"
-              name="Email"
+              name="userEmail"
               value={user.userEmail}
               onChange={handleOnChange}
-             
             />
           </FloatingLabel>
-          <FloatingLabel controlId="floatingUserID" label="Password" className="mb-3">
+          <FloatingLabel
+            controlId="floatingUserID"
+            label="Password"
+            className="mb-3"
+          >
             <Form.Control
-            readOnly
+              readOnly
               type="text"
-              name="password"
+              name="userPassword"
               value={user.userPassword}
               onChange={handleOnChange}
-             
             />
           </FloatingLabel>
-          <FloatingLabel controlId="floatingUserID" label="User ID" className="mb-3">
-            <Form.Control
-              type="text"
-              name="userid"
+          <FloatingLabel
+            controlId="floatingUserRole"
+            label="Role"
+            className="mb-3"
+          >
+            <Form.Select
+              name="userRole"
               value={user.userRole}
-              onChange={handleOnChange}
-             
-            />
+              onChange={(e) => setUser({ ...user, userRole: e.target.value })}
+            >
+              <option value="">Select Role</option>
+              <option value="ADMIN">USER</option>
+              <option value="USER">STAFF</option>
+                <option value="USER">ADMIN</option>
+            </Form.Select>
           </FloatingLabel>
         </Form>
       </Modal.Body>
