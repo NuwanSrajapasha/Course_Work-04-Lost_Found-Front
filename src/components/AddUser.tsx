@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { FloatingLabel, Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { UpdateUsers } from "../service/UpdateUser";
+import { AddUserData } from "../service/AddUserData";
 
 interface User {
   userID: string;
@@ -13,15 +13,15 @@ interface User {
   userRole: string;  // or enum if you have Role enum
 }
 
-interface UserEditProps {
-  show: boolean;
-  selectedRow: User | null;
-  handleClose: () => void;
-  handleUpdate: (updatedUser: User) => void;
-}
+// interface UserEditProps {
+//   show: boolean;
+//   selectedRow: User | null;
+//   handleClose: () => void;
+//   handleUpdate: (updatedUser: User) => void;
+// }
 
-function EditUser({ show, selectedRow, handleClose, handleUpdate }: UserEditProps) {
-  const [user, setUser] = useState<User>({
+function AddUser({ show, handleClose, handleAdd }: any) {
+  const [newUser, setNewUser] = useState<User>({
     userID: "",
     userName: "",
     userEmail: "",
@@ -30,57 +30,31 @@ function EditUser({ show, selectedRow, handleClose, handleUpdate }: UserEditProp
     userRole: "",
   });
 
-  useEffect(() => {
-  console.log("selectedRow changed:", selectedRow);
-  if (selectedRow) {
-    setUser({
-      userID: selectedRow.userID || "",
-      userName: selectedRow.userName || "",
-      userEmail: selectedRow.userEmail || "",
-      userPassword: selectedRow.userPassword || "",
-      userPhone: selectedRow.userPhone || "",
-      userRole: selectedRow.userRole || "",
-    });
-  }
-}, [selectedRow]);
-
+  
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
    const {name,value}=e.target;
-   setUser((prev)=>({...prev,[name] : value}))
+   setNewUser((prev)=>({...prev,[name] : value}))
   };
 
-  const handleOnSave = async () => {
+  const  handleOnSubmit= async () => {
     try {
-      handleUpdate(user);
-      const updateUser = await UpdateUsers(user);
-      handleUpdate(updateUser);
+      const newuserDetails = await AddUserData(newUser);
+      handleAdd(newuserDetails);
       handleClose();
     } catch (err) {
-      console.error("Fail to update User", err);
+      console.error("Fail to Add User", err);
     }
   };
 
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Edit User</Modal.Title>
+        <Modal.Title>Add User</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
-          <FloatingLabel
-            controlId="floatingUserID"
-            label="User ID"
-            className="mb-3"
-          >
-            <Form.Control
-              readOnly
-              type="text"
-              name=" userID"
-              value={user.userID}
-              onChange={handleOnChange}
-            />
-          </FloatingLabel>
+          
           <FloatingLabel
             controlId="floatingUserID"
             label="User Name"
@@ -89,7 +63,7 @@ function EditUser({ show, selectedRow, handleClose, handleUpdate }: UserEditProp
             <Form.Control
               type="text"
               name="userName"
-              value={user.userName}
+              value={newUser.userName}
               onChange={handleOnChange}
             />
           </FloatingLabel>
@@ -101,7 +75,7 @@ function EditUser({ show, selectedRow, handleClose, handleUpdate }: UserEditProp
             <Form.Control
               type="text"
               name="userEmail"
-              value={user.userEmail}
+              value={newUser.userEmail}
               onChange={handleOnChange}
             />
           </FloatingLabel>
@@ -111,10 +85,10 @@ function EditUser({ show, selectedRow, handleClose, handleUpdate }: UserEditProp
             className="mb-3"
           >
             <Form.Control
-              readOnly
+            
               type="text"
               name="userPassword"
-              value={user.userPassword}
+              value={newUser.userPassword}
               onChange={handleOnChange}
             />
           </FloatingLabel>
@@ -125,8 +99,8 @@ function EditUser({ show, selectedRow, handleClose, handleUpdate }: UserEditProp
           >
             <Form.Select
               name="userRole"
-              value={user.userRole}
-              onChange={(e) => setUser({ ...user, userRole: e.target.value })}
+              value={newUser.userRole}
+              onChange={(e) => setNewUser({ ...newUser, userRole: e.target.value })}
             >
               <option value="">Select Role</option>
               <option value="ADMIN">USER</option>
@@ -140,12 +114,12 @@ function EditUser({ show, selectedRow, handleClose, handleUpdate }: UserEditProp
         <Button variant="secondary" onClick={handleClose}>
           Close
         </Button>
-        <Button variant="primary" onClick={handleOnSave}>
-          Save Changes
+        <Button variant="primary" onClick={handleOnSubmit}>
+          Save 
         </Button>
       </Modal.Footer>
     </Modal>
   );
 }
 
-export default EditUser;
+export default AddUser;

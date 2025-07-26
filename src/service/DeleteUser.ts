@@ -6,13 +6,13 @@ export const DeleteUser=async(userID : string)=>{
     //GetUsers
     try{
         const response=axios.delete(
-         `${UpdateUserURL}?userID=${userID}`,{
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`, // Add if using JWT
-                'Content-Type': 'application/json'
+             `${UpdateUserURL}/${userID}`,  // Changed to RESTful format
+            {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}` // Add if using auth
+                }
             }
-        
-    });
+         );
         
         console.log((await response).data)
         return (await response).data;

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import EditUser from "./Edituser";
 import { DeleteUser } from "../service/DeleteUser";
+import AddUser from "./AddUser";
 
 export function UserConsole() {
  interface User {
@@ -19,6 +20,7 @@ export function UserConsole() {
   const [userData, setUserData] = useState<User[]>([]);
   const [selectedRow, setSelectedRow] = useState<User | null>(null);
   const [showEditUserForm, setShowEditUserForm] = useState(false);
+  const [showAddUserForm, setShowAddUserForm] = useState(false);
 
   // Load data once
   useEffect(() => {
@@ -65,9 +67,16 @@ export function UserConsole() {
     }
    
   }
+  //Handle addUser
+  const handleAdd = (newUser: User) => {
+  setUserData((prevData) => [...prevData, newUser]);
+};
 
   return (
     <>
+    <div className="d-flex justify-content-end p-3">
+      <Button variant="primary" onClick={()=>setShowAddUserForm(true)}>Add User</Button>
+    </div>
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -101,6 +110,12 @@ export function UserConsole() {
         selectedRow={selectedRow}
         handleClose={handleClose}
         handleUpdate={handleUpdate} 
+      />
+      <AddUser
+      show={showAddUserForm}
+      handleClose={()=>setShowAddUserForm(false)}
+      handleAddNew={handleAdd}
+
       />
     </>
   );
