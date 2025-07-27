@@ -5,8 +5,11 @@ import { Button } from "react-bootstrap";
 import EditUser from "./Edituser";
 
 import AddUser from "./AddUser";
-import { GetUsers } from "../service/GetUsers";
-import { DeleteUser } from "../service/DeleteUser";
+// import { GetUsers } from "../service/User/GetUsers";
+// import { DeleteUser } from "../service/User/DeleteUser";
+import {AddUserData,GetUsers,DeleteUser,UpdateUsers} from "../service/User/UserData"
+
+
 export function UserConsole() {
  interface User {
   userID: string;

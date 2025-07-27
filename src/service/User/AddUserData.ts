@@ -1,13 +1,13 @@
 import axios from "axios";
 
-const addUserURL= "http://localhost:8080/lost_found/api/v1/users"
+const AddUserURL= "http://localhost:8080/lost_found/api/v1/users"
 
 export const AddUserData=async(user : any)=>{
     //Save a user
     console.log("Save user.........",user)
     try{
         const response=await axios.post(
-         addUserURL
+         AddUserURL
          ,user
         
 
@@ -20,10 +20,3 @@ export const AddUserData=async(user : any)=>{
     }
 
 }
-
-
-
-
-
-
-

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { FloatingLabel, Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { UpdateUsers } from "../service/UpdateUser";
+import { UpdateUsers } from "../service/User/UpdateUser";
 
 interface User {
   userID: string;
