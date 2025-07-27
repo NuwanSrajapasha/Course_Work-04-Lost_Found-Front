@@ -46,6 +46,18 @@ function AddUser({ show, handleClose, handleAdd,addUser }: any) {
       console.error("Fail to Add User", err);
     }
   };
+    //handle the repeat FloatingLabel
+const renderFloatingTabel=(label:string,name:keyof User,type="text",readOnly=false)=>
+      (
+      <FloatingLabel controlId="floatingUserID"label={label} className="mb-3">
+        <Form.Control
+        type={type}
+        name={name}
+        value={newUser[name]}
+        onChange={handleOnChange}
+        readOnly={readOnly}/>
+      </FloatingLabel>
+    );
 
   return (
     <Modal show={show} onHide={handleClose}>
@@ -55,43 +67,11 @@ function AddUser({ show, handleClose, handleAdd,addUser }: any) {
       <Modal.Body>
         <Form>
           
-          <FloatingLabel
-            controlId="floatingUserID"
-            label="User Name"
-            className="mb-3"
-          >
-            <Form.Control
-              type="text"
-              name="userName"
-              value={newUser.userName}
-              onChange={handleOnChange}
-            />
-          </FloatingLabel>
-          <FloatingLabel
-            controlId="floatingUserID"
-            label="Email"
-            className="mb-3"
-          >
-            <Form.Control
-              type="text"
-              name="userEmail"
-              value={newUser.userEmail}
-              onChange={handleOnChange}
-            />
-          </FloatingLabel>
-          <FloatingLabel
-            controlId="floatingUserID"
-            label="Password"
-            className="mb-3"
-          >
-            <Form.Control
-            
-              type="text"
-              name="userPassword"
-              value={newUser.userPassword}
-              onChange={handleOnChange}
-            />
-          </FloatingLabel>
+          {renderFloatingTabel("User Name","userName","text",false)}
+          {renderFloatingTabel("Email","userEmail","text",false)}
+           {renderFloatingTabel("Password","userPassword","text",false)}
+      
+      
           <FloatingLabel
             controlId="floatingUserRole"
             label="Role"
@@ -107,7 +87,9 @@ function AddUser({ show, handleClose, handleAdd,addUser }: any) {
               <option value="USER">STAFF</option>
                 <option value="USER">ADMIN</option>
             </Form.Select>
-          </FloatingLabel>
+          </FloatingLabel> 
+          
+         
         </Form>
       </Modal.Body>
       <Modal.Footer>

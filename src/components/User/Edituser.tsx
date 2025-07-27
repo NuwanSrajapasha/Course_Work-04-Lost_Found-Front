@@ -64,7 +64,7 @@ function EditUser({ show, selectedRow, handleClose, handleUpdate,updateUsers }: 
   //handle the repeat FloatingLabel
 const renderFloatingTabel=(label:string,name:keyof User,type="text",readOnly=false)=>
     (
-    <FloatingLabel controlId="floatingUserID"label="User Name"className="mb-3">
+    <FloatingLabel controlId="floatingUserID"label={label} className="mb-3">
       <Form.Control
       type={type}
       name={name}
