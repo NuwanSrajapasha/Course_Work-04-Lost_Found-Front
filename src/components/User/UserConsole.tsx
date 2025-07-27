@@ -4,10 +4,11 @@ import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import EditUser from "./Edituser";
 
-import AddUser from "./AddUser";
+
 // import { GetUsers } from "../service/User/GetUsers";
 // import { DeleteUser } from "../service/User/DeleteUser";
-import {AddUserData,GetUsers,DeleteUser,UpdateUsers} from "../service/User/UserData"
+import {AddUserData,GetUsers,DeleteUser,UpdateUsers} from "../Services/UserData"
+import AddUser from "../AddUser";
 
 
 export function UserConsole() {
@@ -117,6 +118,7 @@ export function UserConsole() {
         selectedRow={selectedRow}
         handleClose={handleClose}
         handleUpdate={handleUpdate} 
+        updateUsers={UpdateUsers}
       />
       <AddUser
       show={showAddUserForm}
@@ -137,4 +139,3 @@ function setSuccess(arg0: string) {
 function setError(arg0: string) {
   throw new Error("Function not implemented.");
 }
-

@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { FloatingLabel, Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { UpdateUsers } from "../service/User/UpdateUser";
-
+ 
 interface User {
   userID: string;
   userName: string;
@@ -18,9 +17,10 @@ interface UserEditProps {
   selectedRow: User | null;
   handleClose: () => void;
   handleUpdate: (updatedUser: User) => void;
+  updateUsers : (user : User ) => Promise<void>;
 }
 
-function EditUser({ show, selectedRow, handleClose, handleUpdate }: UserEditProps) {
+function EditUser({ show, selectedRow, handleClose, handleUpdate,updateUsers }: UserEditProps) {
   const [user, setUser] = useState<User>({
     userID: "",
     userName: "",
@@ -53,8 +53,8 @@ function EditUser({ show, selectedRow, handleClose, handleUpdate }: UserEditProp
   const handleOnSave = async () => {
     try {
       handleUpdate(user);
-      const updateUser = await UpdateUsers(user);
-      handleUpdate(updateUser);
+      await updateUsers(user);
+      handleUpdate(user);
       handleClose();
     } catch (err) {
       console.error("Fail to update User", err);

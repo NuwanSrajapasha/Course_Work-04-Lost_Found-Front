@@ -39,7 +39,7 @@ function AddUser({ show, handleClose, handleAdd,addUser }: any) {
 
   const  handleOnSubmit= async () => {
     try {
-      const newuserDetails = await AddUser(newUser);
+      const newuserDetails = await addUser(newUser);
       handleAdd(newuserDetails);
       handleClose();
     } catch (err) {
