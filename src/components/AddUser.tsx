@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { FloatingLabel, Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { AddUserData } from "../service/UserData";
+//import { AddUserData } from "../service/UserData";
 
 interface User {
   userID: string;
@@ -39,7 +39,7 @@ function AddUser({ show, handleClose, handleAdd }: any) {
 
   const  handleOnSubmit= async () => {
     try {
-      const newuserDetails = await AddUserData(newUser);
+      const newuserDetails = await AddUser(newUser);
       handleAdd(newuserDetails);
       handleClose();
     } catch (err) {

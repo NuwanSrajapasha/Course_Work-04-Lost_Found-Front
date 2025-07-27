@@ -1,8 +1,12 @@
 import Table from "react-bootstrap/esm/Table";
+
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
+import EditUser from "./Edituser";
+
 import AddUser from "./AddUser";
-import {AddUserData,DeleteUser,GetUsers,UpdateUsers} from '../service/UserData'
+import { GetUsers } from "../service/GetUsers";
+import { DeleteUser } from "../service/DeleteUser";
 export function UserConsole() {
  interface User {
   userID: string;
@@ -10,7 +14,7 @@ export function UserConsole() {
   userEmail: string;
   userPassword: string;
   userPhone: string;
-  userRole: string;  // or enum if you have Role enum
+  userRole: string;  
 }
 
 
@@ -30,18 +34,21 @@ export function UserConsole() {
 
   const tHeads: string[] = ["ID", "User Name", "Email", "Password", "Phone", "Role", "Actions"];
 
+  //HandleEdit
   const handleEdit = (row: User) => {
     console.log("Handle Edit:", row);
     setSelectedRow(row);        
     setShowEditUserForm(true); 
   };
 
+  //HandleClose
   const handleClose = () => setShowEditUserForm(false);
 
+  //Handle Update
   const handleUpdate = (updatedUser: User) => {
     console.log("Updated user:", updatedUser);
     const updatedUsers=userData.map((user)=>
-    user.userID ==updatedUser.userID ? updatedUser : user);
+    user.userID ===updatedUser.userID ? updatedUser : user);
     setUserData(updatedUsers)
   };
   //Handle  Delete
