@@ -8,7 +8,7 @@ import EditUser from "./Edituser";
 // import { GetUsers } from "../service/User/GetUsers";
 // import { DeleteUser } from "../service/User/DeleteUser";
 import {AddUserData,GetUsers,DeleteUser,UpdateUsers} from "../Services/UserData"
-import AddUser from "../AddUser";
+import AddUser from "./AddUser";
 
 
 export function UserConsole() {

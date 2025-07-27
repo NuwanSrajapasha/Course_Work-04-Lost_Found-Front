@@ -1,16 +1,16 @@
-import React from 'react';
-import logo from './logo.svg';
+
 import './App.css';
-import Register from './components/Auth/Register';
-import Login from './components/Auth/Login';
-import NavB from './components/User/NavB';
-import UserConsole from './components/User/UserConsole';
+import { ItemConsole } from './components/Item/ItemConsole';
+import NavI from './components/Item/NavI';
+
+
 
 function App() {
   return (
     <>
-      <NavB/>
-      <UserConsole/>
+      <NavI/>
+      <ItemConsole/>
+  
     </>
      
   );

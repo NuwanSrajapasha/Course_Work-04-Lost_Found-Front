@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { FloatingLabel, Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-//import { AddUserData } from "../service/UserData";
+
 
 interface User {
   userID: string;
@@ -10,15 +10,9 @@ interface User {
   userEmail: string;
   userPassword: string;
   userPhone: string;
-  userRole: string;  // or enum if you have Role enum
+  userRole: string;  
 }
 
-// interface UserEditProps {
-//   show: boolean;
-//   selectedRow: User | null;
-//   handleClose: () => void;
-//   handleUpdate: (updatedUser: User) => void;
-// }
 
 function AddUser({ show, handleClose, handleAdd,addUser }: any) {
   const [newUser, setNewUser] = useState<User>({
