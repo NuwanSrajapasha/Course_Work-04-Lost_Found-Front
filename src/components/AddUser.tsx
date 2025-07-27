@@ -20,7 +20,7 @@ interface User {
 //   handleUpdate: (updatedUser: User) => void;
 // }
 
-function AddUser({ show, handleClose, handleAdd }: any) {
+function AddUser({ show, handleClose, handleAdd,addUser }: any) {
   const [newUser, setNewUser] = useState<User>({
     userID: "",
     userName: "",

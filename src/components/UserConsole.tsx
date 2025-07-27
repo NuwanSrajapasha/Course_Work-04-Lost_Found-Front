@@ -122,6 +122,7 @@ export function UserConsole() {
       show={showAddUserForm}
       handleClose={()=>setShowAddUserForm(false)}
       handleAddNew={handleAdd}
+      addUser={AddUserData}
 
       />
     </>
