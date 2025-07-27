@@ -23,7 +23,7 @@ interface ItemEditProps {
   updateItems : (item : Item ) => Promise<void>;
 }
 
-function EditItem({ show, selectedRow, handleClose, handleUpdate,updateItems }: ItemEditProps) {
+function RequestItem({ show, selectedRow, handleClose, handleUpdate,updateItems }: ItemEditProps) {
   const [item, setItem] = useState<Item>({
     itemID: "",
     itemName: "",
@@ -99,14 +99,14 @@ return (
           Close
         </Button>
         <Button variant="primary" onClick={handleOnSave}>
-          Save Changes
+         Request
         </Button>
       </Modal.Footer>
     </Modal>
   );
 }
 
-export default EditItem;
+export default RequestItem;
 function updateItem(item: Item) {
   throw new Error("Function not implemented.");
 }

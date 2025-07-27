@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
-import EditItem from "./EditItem";
 import { AddItemData,DeleteItem,GetItems,UpdateItems } from "../Services/ItemData";
 import LostItem from "./LostItem";
+import RequestItem from "./RequestItem";
 
 
 export function ItemConsole(){
@@ -108,7 +108,7 @@ return(
         </tbody>
       </Table>
 
-      <EditItem
+      <RequestItem
         show={showEditItemForm}
         selectedRow={selectedRow}
         handleClose={handleClose}
