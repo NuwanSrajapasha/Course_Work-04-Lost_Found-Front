@@ -9,7 +9,7 @@ interface User {
   userEmail: string;
   userPassword: string;
   userPhone: string;
-  userRole: string;  // or enum if you have Role enum
+  userRole: string;  
 }
 
 interface UserEditProps {
@@ -61,63 +61,31 @@ function EditUser({ show, selectedRow, handleClose, handleUpdate,updateUsers }: 
     }
   };
 
-  return (
+  //handle the repeat FloatingLabel
+const renderFloatingTabel=(label:string,name:keyof User,type="text",readOnly=false)=>
+    (
+    <FloatingLabel controlId="floatingUserID"label="User Name"className="mb-3">
+      <Form.Control
+      type={type}
+      name={name}
+      value={user[name]}
+      onChange={handleOnChange}
+      readOnly={readOnly}/>
+    </FloatingLabel>
+  );
+
+
+return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Edit User</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
-          <FloatingLabel
-            controlId="floatingUserID"
-            label="User ID"
-            className="mb-3"
-          >
-            <Form.Control
-              readOnly
-              type="text"
-              name=" userID"
-              value={user.userID}
-              onChange={handleOnChange}
-            />
-          </FloatingLabel>
-          <FloatingLabel
-            controlId="floatingUserID"
-            label="User Name"
-            className="mb-3"
-          >
-            <Form.Control
-              type="text"
-              name="userName"
-              value={user.userName}
-              onChange={handleOnChange}
-            />
-          </FloatingLabel>
-          <FloatingLabel
-            controlId="floatingUserID"
-            label="Email"
-            className="mb-3"
-          >
-            <Form.Control
-              type="text"
-              name="userEmail"
-              value={user.userEmail}
-              onChange={handleOnChange}
-            />
-          </FloatingLabel>
-          <FloatingLabel
-            controlId="floatingUserID"
-            label="Password"
-            className="mb-3"
-          >
-            <Form.Control
-              readOnly
-              type="text"
-              name="userPassword"
-              value={user.userPassword}
-              onChange={handleOnChange}
-            />
-          </FloatingLabel>
+          {renderFloatingTabel("user ID","userID","text",true)}
+          {renderFloatingTabel("User Name","userName","text",false)}
+          {renderFloatingTabel("Email","userEmail","text",false)}
+      
           <FloatingLabel
             controlId="floatingUserRole"
             label="Role"
@@ -133,7 +101,7 @@ function EditUser({ show, selectedRow, handleClose, handleUpdate,updateUsers }: 
               <option value="USER">STAFF</option>
                 <option value="USER">ADMIN</option>
             </Form.Select>
-          </FloatingLabel>
+          </FloatingLabel> 
         </Form>
       </Modal.Body>
       <Modal.Footer>
