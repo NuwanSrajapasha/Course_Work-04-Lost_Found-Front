@@ -93,7 +93,7 @@ function Register() {
           Your password must be 8–20 characters long, contain letters and numbers.
         </Form.Text>
 
-        {/* 🔽 Role Dropdown */}
+        {/*  Role Dropdown */}
         <Form.Group className="mb-3" controlId="roleSelect">
           <Form.Label>Select Role</Form.Label>
           <Form.Select
