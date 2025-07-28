@@ -39,13 +39,16 @@ function Register() {
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "column",
-        minHeight: "80vh"
+        minHeight: "80vh",
       }}
     >
       <h1 style={{ marginBottom: "50px" }}>Welcome to Lost Found Hub</h1>
       <h3 style={{ marginBottom: "30px" }}>Register</h3>
 
-      <Form onSubmit={handleSubmit} style={{ maxWidth: "320px", width: "100%" }}>
+      <Form
+        onSubmit={handleSubmit}
+        style={{ maxWidth: "320px", width: "100%" }}
+      >
         <Form.Label>User Name</Form.Label>
         <Form.Control
           type="text"
@@ -90,7 +93,8 @@ function Register() {
           required
         />
         <Form.Text muted>
-          Your password must be 8–20 characters long, contain letters and numbers.
+          Your password must be 8–20 characters long, contain letters and
+          numbers.
         </Form.Text>
 
         {/*  Role Dropdown */}
@@ -110,6 +114,16 @@ function Register() {
 
         <div style={{ marginTop: "50px", textAlign: "center" }}>
           <Button type="submit">Register</Button>
+
+          <div style={{ marginTop: "20px" }}>
+            <span>Already have an account? </span>
+            <a
+              href="/login"
+              style={{ textDecoration: "underline", color: "#0d6efd" }}
+            >
+              Login here
+            </a>
+          </div>
         </div>
       </Form>
     </div>
