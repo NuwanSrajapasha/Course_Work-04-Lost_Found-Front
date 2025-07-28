@@ -8,8 +8,8 @@ const AddItemData=async(item : any)=>{
     console.log("Save item.........",item)
     try{
         const response=await axios.post(
-         BaseUserURL
-         ,item
+         `${BaseUserURL}/lost`,
+         item
         
 
         )

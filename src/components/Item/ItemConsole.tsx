@@ -119,7 +119,7 @@ return(
       show={showAddItemForm}
       handleClose={()=>setShowAddItemForm(false)}
       handleAddNew={handleAdd}
-      AddItem={AddItemData}
+      addItem={AddItemData}
 
       />
     </>
