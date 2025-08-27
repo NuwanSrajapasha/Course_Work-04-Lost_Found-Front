@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export function Login() {
   const [email, setEmail] = useState("");
@@ -26,10 +27,10 @@ export function Login() {
     <div
       style={{
         display: "flex",
-        justifyContent: "center", // center vertically
-        alignItems: "center",     // center horizontally
-        flexDirection: "column",  // stack heading + form vertically
-        minHeight: "80vh"         // give some height
+        justifyContent: "center", 
+        alignItems: "center",     
+        flexDirection: "column",  
+        minHeight: "80vh"         
       }}
     >
       {/* BIG MAIN HEADING CENTERED */}
@@ -71,6 +72,19 @@ export function Login() {
             <Button type="submit">Login</Button>
           </div>
         </Form>
+         <div style={{ marginTop: "50px", textAlign: "center" }}>
+          
+
+          <div style={{ marginTop: "20px" }}>
+            <span>Already haven't account? </span>
+            <Link
+              to="/register"
+              style={{ textDecoration: "underline", color: "#0d6efd" }}
+            >
+              Register here
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );

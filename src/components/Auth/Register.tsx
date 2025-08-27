@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { Button } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
+import { Link } from 'react-router-dom';
 
 function Register() {
   const [userData, setUserData] = useState({
@@ -114,16 +115,6 @@ function Register() {
 
         <div style={{ marginTop: "50px", textAlign: "center" }}>
           <Button type="submit">Register</Button>
-
-          <div style={{ marginTop: "20px" }}>
-            <span>Already have an account? </span>
-            <a
-              href="/login"
-              style={{ textDecoration: "underline", color: "#0d6efd" }}
-            >
-              Login here
-            </a>
-          </div>
         </div>
       </Form>
     </div>
